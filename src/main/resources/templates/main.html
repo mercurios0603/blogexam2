@@ -9,15 +9,29 @@
 <div class="wrap">
     <div class="logo">logo</div>
     <div class="content-wrap">
-        <div class="side-menu">
+        <div class="side-menu1">
+            <!--            노트북 목록 출력-->
+            <ul>
+                <li  th:each="book : ${bookList}" th:class="${book.id == targetBook.id} ? 'selected-item text-center bg-secondary' : 'text-center' ">
+                    <a th:class="${book.id == targetBook.id} ? 'text-light' : ' ' " th:href="@{|/book/${book.id}|}" th:text="${book.name}">  </a>
+                </li>
+            </ul>
+            <div>
+                <form action="/book/write" method="post">
+                    <input type="submit" value="노트북추가">
+                </form>
+            </div>
+        </div>
+        <div class="side-menu2">
             <!--            3. 템플릿에서 게시물 목록 출력-->
             <ul>
-                <li th:each="post : ${postList}">
-                    <a th:href="@{|/detail/${post.id}|}" th:text="${post.title}"></a>
+                <li th:each="post : ${postList}" th:class="${post.id == targetPost.id} ? 'selected-item text-center bg-secondary' : 'text-center' ">
+                    <a th:class="${post.id == targetPost.id} ? 'text-light' : ' ' " th:href="@{|/detail/${post.id}|}" th:text="${post.title}"></a>
                 </li>
             </ul>
             <div>
                 <form action="/write" method="post">
+                    <input type="hidden" name="bookId" th:value="${targetBook.id}">
                     <input type="submit" value="추가">
                 </form>
             </div>
@@ -34,7 +48,8 @@
                     <textarea name="content" cols="30" rows="10" th:text="${targetPost.content}"></textarea>
                 </div>
                 <div>
-                    <input type="submit" value="수정">
+                    <button type="submit" class="btn btn-primary"> 수정하기 </button>
+                    <a th:href = "@{|/delete/${targetPost.id}|}" style="background-color: gray;"> 삭제하기 </a>
                 </div>
             </form>
         </div>

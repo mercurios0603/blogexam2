@@ -1,9 +1,7 @@
-package com.korea.test;
+package com.korea.test.Post;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.korea.test.Book.Book;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +15,13 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+
     private String content;
+
     private LocalDateTime createDate;
 
+    @ManyToOne
+    private Book book;
 }
